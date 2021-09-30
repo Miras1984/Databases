@@ -20,28 +20,28 @@ DELETE FROM order_items where quantity < 20;
 -- 2 Задание
 
 create table order_items(
-    order_code integer NOT NULL UNIQUE,
-    product_id varchar NOT NULL UNIQUE,
+    order_code integer NOT NULL UNIQUE REFERENCES orders(order_code),
+    product_id varchar NOT NULL UNIQUE REFERENCES products(product_id),
     quantity integer NOT NULL CHECK (quantity > 0),
     PRIMARY KEY (order_code, product_id)
 );
 create table products(
-    product_id varchar PRIMARY KEY REFERENCES order_items(product_id),
+    product_id varchar PRIMARY KEY,
     name varchar NOT NULL UNIQUE,
     description text,
     price double precision NOT NULL CHECK (price > 0)
 );
 
 create table orders(
-    order_code integer NOT NULL UNIQUE REFERENCES order_items(order_code),
-    customer_id integer NOT NULL UNIQUE,
+    order_code integer NOT NULL UNIQUE,
+    customer_id integer NOT NULL UNIQUE REFERENCES customers(customer_id),
     total_sum double precision NOT NULL CHECK (total_sum > 0),
     is_paid boolean NOT NULL,
     PRIMARY KEY (customer_id, order_code)
 );
 
 create table customers(
-    customer_id integer PRIMARY KEY REFERENCES orders(customer_id),
+    customer_id integer PRIMARY KEY,
     full_name varchar(50) NOT NULL,
     timestamp timestamp,
     delivery_address text
@@ -57,7 +57,7 @@ DELETE FROM order_items where quantity < 20;
 
 --a
 CREATE TABLE Student(
-    full_name varchar(100) NOT NULL,
+    full_name varchar(100) NOT NULL UNIQUE ,
     age integer NOT NULL,
     birth_date varchar(50) NOT NULL,
     gender char(1) NOT NULL,
@@ -73,7 +73,7 @@ CREATE TABLE University(
 
 --b
 CREATE TABLE Instructor(
-    full_name varchar(100) NOT NULL,
+    full_name varchar(100) NOT NULL UNIQUE ,
     languages text NOT NULL,
     work_exp double precision,
     remote_lessons boolean

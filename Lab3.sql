@@ -132,7 +132,8 @@ where id in (
         from course
         where course.dept_name = 'Comp. Sci.'
         )
-    );
+    )
+order by name;
 
 --b
 select i_id
@@ -165,11 +166,11 @@ where id not in(
     where course_id in(
         select course_id
         from takes
-        where grade in ('A', 'B+', 'B-', 'C+', 'C', 'B', 'C-', 'F')
+        where grade = 'A' or grade = 'A-'
         )
     );
 
 --e
 select course_id
 from section
-where time_slot_id = 'A' or time_slot_id = 'B'
+where time_slot_id = 'A' or time_slot_id = 'B' or time_slot_id = 'C';

@@ -65,16 +65,16 @@ where S.T = max_courses.maxx;
 with min_courses(minn) as(
     select min(foo.T)
     from (
-         select building, count(course_id) as T
-         from section
-         group by building
+         select dept_name, count(course_id) as T
+         from course
+         group by dept_name
              ) as foo
 )
-select building
+select dept_name
 from (
-    select building, count(course_id) as T
-      from section
-      group by building
+    select dept_name, count(course_id) as T
+      from course
+      group by dept_name
      ) as S, min_courses
 where S.T = min_courses.minn;
 
